@@ -1,3 +1,14 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+# Why Override SEOmatic?
+Canada (`bigcommerce.ca`) serves the same content as the US (`bigcommerce.com`). Craft can correctly serve and cache _true_ locales, but Canada's `en_ca` is not a _true_ locale, it serves `en_us` content. However, some SEO/links are different, so it needs it's own cache. htmlcache(Redis) uses `CACHE_KEY`. This created a problem when hitting `.ca` then `.com` (or `.com` then `.ca`). SEOmatic's canonical URL would set correctly for the _first_ hit address, and cache accordingly. However, hitting the _second_ address would serve the cached SEOmatic metadata from the _first_ (including the canonical URL). In order to consistently and correctly get and serve CA and US SEOmatic data, we need to include Craft's `CACHE_KEY` from the Craft server.
+
+# DEPRECATED
+
+This Craft CMS 2.x plugin is no longer supported, but it is fully functional, and you may continue to use it as you see fit. The license also allows you to fork it and make changes as needed for legacy support reasons.
+
+The Craft CMS 3.x version of this plugin can be found here: [craft-seomatic](https://github.com/nystudio107/craft-seomatic) and can also be installed via the Craft Plugin Store in the Craft CP.
+
 # SEOmatic plugin for Craft
 
 A turnkey SEO implementation for Craft CMS that is comprehensive, powerful, and flexible.
