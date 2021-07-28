@@ -41,14 +41,15 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Cache the results for speediness; 1 query to rule them all */
 
         $shouldCache = ($metaVars != null);
+        // SHANNON
         if (craft()->config->get('devMode'))
             $shouldCache = false;
         if ($shouldCache)
         {
             $cacheKey = 'seomatic_metacache_' . $this->getMetaHashStr($templatePath, $metaVars);
             $cache = craft()->cache->get($cacheKey);
-            if ($cache)
-                return $cache;
+            // if ($cache)
+            //     return $cache;
         }
 
 /* -- If Minify is installed, minify all the things */
