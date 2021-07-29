@@ -24,6 +24,10 @@ class SeomaticService extends BaseApplicationComponent
     protected $cachedWebSiteJSONLD = array();
     protected $renderedMetaVars = null;
 
+    public function getCashKey() {
+        return CACHE_KEY;
+    }
+
 /* --------------------------------------------------------------------------------
     Render the all of the SEO Meta, caching it if possible
 -------------------------------------------------------------------------------- */
@@ -41,11 +45,15 @@ class SeomaticService extends BaseApplicationComponent
 /* -- Cache the results for speediness; 1 query to rule them all */
 
         $shouldCache = ($metaVars != null);
+        
         if (craft()->config->get('devMode'))
             $shouldCache = false;
         if ($shouldCache)
         {
-            $cacheKey = 'seomatic_metacache_' . $this->getMetaHashStr($templatePath, $metaVars);
+            /* -- Must include Craft's CACHE_KEY to correctly serve CA vs. US seomatic data. */
+            /* -- See README for details */
+            $craftCacheKey = $this->getCashKey();
+            $cacheKey = 'seomatic_metacache_' . $craftCacheKey . $this->getMetaHashStr($templatePath, $metaVars);
             $cache = craft()->cache->get($cacheKey);
             if ($cache)
                 return $cache;
